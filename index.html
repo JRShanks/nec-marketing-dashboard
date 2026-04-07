@@ -4,6 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NEC Marketing Insights Dashboard</title>
+<link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABmJLR0QA/wD/AP+gvaeTAAADsklEQVRYhcWW32tcRRTHP+fu2uB2W9PNJsb8aKlsIAmlrS2VQGuhVBFMoSCKqEjQ4o+KCEUffPMvECy1IkpRKQp98EUQ/AckBW2plH0IptVK1QW3W5PUbHf33jk+3N29c2fvotE1HbgPs3PO+XznnDMzKzRHoVDoW13NvIzIMyA7gI0ACoAQG+LM3XWk/ZPlv4ToRTGc/u36d1/EPMfGdo0aw1cIu+xgPYQ79nIu23djbnFxseYVCoW+9YUDok+t1HNnAGRkZOfriJxcP7htr0c8FXn2jsDD8ZonyPT/AZ+aLHDmneNMTRa6wVGVGQ/I9hoO8PzckxwaucSeB3YkwsOZ9MvI6G7tJXwwn+PYWy8wX7pK5c8Vrt34nfrVCrcvXE+Ml+4l/JHDB5iemuCsLqKHBoAtZNlK7XLJERDF83oBH8znePPEi9z8Y4mT731CtVHDGNP+VE1iPAXS/xXe2vXpD85SrdYAMIBpFhbAqOVvwRHB+7fwwfyAteuP23AEVBVjok9VE+FAU8Aa4UdnD/Du24/R+OkjHhz+lldma2zOaNvGqHZ8SXCA9Frg+XyOueeeoHztGw5u+pKDRyOr76+kmF+4C5AwA1bdtSnAhYcC/iH84cMPtWu9e9sKOmsc2yjNqooaa9eqiXCwe6ALfDCf440TL1m1vh2yjMY/tW+4ePpVtWuZ03+388LEdk69/ym1Wj2+oyCeAY01vSJWCewecHnprjuf3E/23vspAaMz0yyXrlBemI+cjVuCyL91CpLEubzOHmiuj+9/mi3b97RXbv54kfLC+VZE1BVgHTWj2pwTzRPgILaA+FELAvD9KEgQOE9q4GbA6gHjZMDE7wGbl7YnLTgIfgANPzL3AyuG0lkC66gZ4j3gdoDNS3d7WIJA4xkwVhoVNHDCanTOtdX5jjgXHgro8p6HJSA2j3k6GbDPuWkdzbatJT5WiWYPJD3JnT0Q31FHEzpi7AwIIAlw6PZ/oFsP2M4dTRgNY+ICxRhSCXDodg8Age/HM9BWI/iGjgxEegQNTOzy8QKuB5pDARke37cEbI4tCqSzw2y4Z6xt3Fj+lcZKCYCUp+zduko6Fa75RrjwcwbfhDe7DtyNDmUiZLmKlKsdcJBlGR7f9zXwqA13lSYpX8srmugfdsZ5D09O3Rk4qOhnqVtLv/ywsX90QoSd6wlH5NJQpnLcA9i0oXIM5Nx6woNG40ixWKzHzO/bNvO4Kq8quleQ/p7CVW4hXFbh86FM5cNisVgH+AtLCwBjU9IkjQAAAABJRU5ErkJggg==">
+<link rel="apple-touch-icon" sizes="180x180" href="data:image/png;base64,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">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="NEC Insights">
+<meta name="theme-color" content="#1a1a2e">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -21,7 +27,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 .takeaways h3 { color: #92400e; font-size: 16px; margin-bottom: 12px; }
 .takeaways ul { list-style: none; padding: 0; }
 .takeaways li { padding: 6px 0; padding-left: 24px; position: relative; font-size: 14px; color: #78350f; }
-.takeaways li::before { content: "â¦"; position: absolute; left: 0; color: #f59e0b; font-weight: bold; }
+.takeaways li::before { content: "✦"; position: absolute; left: 0; color: #f59e0b; font-weight: bold; }
 
 /* KPI cards */
 .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px; }
@@ -90,7 +96,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 
 <!-- EMAIL PERFORMANCE -->
 <div class="section">
-  <div class="section-title"><span class="icon">ð§</span> Email Performance</div>
+  <div class="section-title"><span class="icon">📧</span> Email Performance</div>
   <div class="kpi-grid" id="email-kpis"></div>
   <div class="chart-grid">
     <div class="chart-card">
@@ -121,7 +127,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 
 <!-- FACEBOOK PERFORMANCE -->
 <div class="section">
-  <div class="section-title"><span class="icon">ð</span> Facebook Performance (YTD: Jan 1 â Apr 5, 2026)</div>
+  <div class="section-title"><span class="icon">📘</span> Facebook Performance (YTD: Jan 1 – Apr 5, 2026)</div>
   <div class="kpi-grid" id="fb-kpis"></div>
   <div class="chart-grid">
     <div class="chart-card">
@@ -147,7 +153,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 
 <!-- INSTAGRAM PERFORMANCE -->
 <div class="section">
-  <div class="section-title"><span class="icon">ð¸</span> Instagram Performance</div>
+  <div class="section-title"><span class="icon">📸</span> Instagram Performance</div>
   <div class="kpi-grid" id="ig-kpis"></div>
   <div class="chart-grid">
     <div class="chart-card" style="grid-column: 1 / -1;">
@@ -159,7 +165,39 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 
 <!-- MANNA APP INSIGHTS -->
 <div class="section">
-  <div class="section-title"><span class="icon">ð±</span> Manna App Insights</div>
+  <div class="section-title"><span class="icon">📱</span> Manna App — User & Engagement Analytics</div>
+  <p style="font-size:13px;color:#6b7280;margin:-8px 0 16px 0;">Live data from PostHog · Tracking since May 2025</p>
+  <div class="kpi-grid" id="manna-app-kpis"></div>
+
+  <!-- Key Takeaway box -->
+  <div style="background:linear-gradient(135deg,#f5f3ff,#ede9fe);border:1px solid #8b5cf6;border-radius:10px;padding:20px 24px;margin:20px 0;">
+    <h4 style="color:#6d28d9;font-size:15px;margin-bottom:10px;">🔑 Key Takeaway</h4>
+    <p id="manna-key-takeaway" style="font-size:14px;color:#5b21b6;line-height:1.7;"></p>
+  </div>
+
+  <div class="chart-grid">
+    <div class="chart-card">
+      <h4>People Using the App Each Week</h4>
+      <canvas id="mannaWauChart"></canvas>
+    </div>
+    <div class="chart-card">
+      <h4>New Users Per Week</h4>
+      <canvas id="mannaGrowthChart"></canvas>
+    </div>
+  </div>
+  <div class="chart-grid">
+    <div class="chart-card">
+      <h4>Content Plays Per Week</h4>
+      <canvas id="mannaPlaysChart"></canvas>
+    </div>
+    <div class="chart-card">
+      <h4>First-Week Return Rate (by Cohort)</h4>
+      <canvas id="mannaRetentionChart"></canvas>
+    </div>
+  </div>
+
+  <!-- Email performance sub-section -->
+  <h4 style="font-size:15px;font-weight:600;margin:24px 0 12px;color:#374151;">📧 Manna Email Performance</h4>
   <div class="kpi-grid" id="manna-kpis"></div>
   <div class="manna-insight" id="manna-insight-box"></div>
 </div>
@@ -170,54 +208,54 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 // ==================== DATA ====================
 
 const emailData = [
-  ["10/21","NEP","75,093","ð£Last call! Perpetual pilgrim applications are due tomorrow!","19.50%","0.50%","Application","301"],
-  ["10/24","Manna","4,367","ðThe Manna app just got even better!","39.91%","6.78%","Manna landing page","238"],
-  ["10/29","Donor tier 2","20","Revival Keeps GrowingâThanks to You","10.00%","5.00%","Donor link","1"],
-  ["10/29","Donor tier 3","6,069","Revival Keeps GrowingâThanks to You","18.14%","1.47%","Manna small group","40"],
-  ["10/29","Donor tier 1","429","Revival Keeps GrowingâThanks to You","24.71%","4.20%","Prayer intentions","11"],
+  ["10/21","NEP","75,093","📣Last call! Perpetual pilgrim applications are due tomorrow!","19.50%","0.50%","Application","301"],
+  ["10/24","Manna","4,367","🙏The Manna app just got even better!","39.91%","6.78%","Manna landing page","238"],
+  ["10/29","Donor tier 2","20","Revival Keeps Growing—Thanks to You","10.00%","5.00%","Donor link","1"],
+  ["10/29","Donor tier 3","6,069","Revival Keeps Growing—Thanks to You","18.14%","1.47%","Manna small group","40"],
+  ["10/29","Donor tier 1","429","Revival Keeps Growing—Thanks to You","24.71%","4.20%","Prayer intentions","11"],
   ["10/30","HRN","125,796","Join the Eucharistic Missionary Movement!","20.58%","1.07%","Stepanek blog","514"],
-  ["10/31","Manna","72,461","Bring Eucharistic Revival right to your fingertipsð±","36.48%","6.57%","Manna landing page","1767"],
-  ["11/7","Manna","71,566","Press play on prayer with the Manna app â±ï¸ð","33.35%","7.20%","Manna landing page","2248"],
+  ["10/31","Manna","72,461","Bring Eucharistic Revival right to your fingertips📱","36.48%","6.57%","Manna landing page","1767"],
+  ["11/7","Manna","71,566","Press play on prayer with the Manna app ⏱️🙏","33.35%","7.20%","Manna landing page","2248"],
   ["11/12","General","134,382","A new chapter for the National Eucharistic Congress","43.22%","3.71%","NEC Website","4118"],
-  ["11/14","Manna","72,177","Make deeper prayer a daily habit ð","32.59%","4.90%","Manna landing page","1395"],
-  ["11/19","Manna","69,800","Your daily prayer life just got a whole lot easier â¨","35.00%","7.00%","Manna landing page","1852"],
+  ["11/14","Manna","72,177","Make deeper prayer a daily habit 🙏","32.59%","4.90%","Manna landing page","1395"],
+  ["11/19","Manna","69,800","Your daily prayer life just got a whole lot easier ✨","35.00%","7.00%","Manna landing page","1852"],
   ["11/21","HRN","130,135","How to prepare for the National Eucharistic Pilgrimage","26.07%","2.97%","NEC Website","1464"],
-  ["11/25","NEP - Giving Tuesday","78,281","Fuel the National Eucharistic PilgrimageâDonate Today!","22.68%","0.26%","Donate","54"],
-  ["11/26","Manna","66,729","Manna's got a treat for your prayer life this Thanksgiving ð¦","36.69%","5.79%","Manna Landing page","1443"],
+  ["11/25","NEP - Giving Tuesday","78,281","Fuel the National Eucharistic Pilgrimage—Donate Today!","22.68%","0.26%","Donate","54"],
+  ["11/26","Manna","66,729","Manna's got a treat for your prayer life this Thanksgiving 🦃","36.69%","5.79%","Manna Landing page","1443"],
   ["12/3","HOP email #1","130,041","Join us this Advent: Heart of Prayer","38.81%","7.17%","Manna Landing page","3791"],
   ["12/4","NEP","75,613","Introducing the 2026 Pilgrimage route!","20.96%","1.57%","Route","490"],
   ["12/5","HRN","48,283","The unbroken story of Jesus' love","36.95%","3.18%","How to Live a Eucharistic Life: The Eucharist in the Age of the Apostles","547"],
   ["12/10","HOP email #2","53,503","What is this Catholic prayer hidden in plain sight?","38.42%","6.44%","Manna Landing page","1361"],
-  ["12/12","Manna","62,694","A new way to pray with the daily readings ð","37.91%","7.50%","Manna Landing page","1862"],
-  ["12/17","Donor tier 2","21","Your Gift is Carrying the Revival ForwardâThank You","47.62%","0.00%","","0"],
+  ["12/12","Manna","62,694","A new way to pray with the daily readings 📖","37.91%","7.50%","Manna Landing page","1862"],
+  ["12/17","Donor tier 2","21","Your Gift is Carrying the Revival Forward—Thank You","47.62%","0.00%","","0"],
   ["12/17","HOP email #3","50,765","What does the Hail Mary really mean?","36.56%","5.08%","Manna","1019"],
-  ["12/17","Donor tier 3","6,107","Your Gift is Carrying the Revival ForwardâThank You","18.65%","3.24%","Webinar registration","67"],
-  ["12/17","Donor tier 1","428","Your Gift is Carrying the Revival ForwardâThank You","25.47%","5.61%","Webinar registration","8"],
+  ["12/17","Donor tier 3","6,107","Your Gift is Carrying the Revival Forward—Thank You","18.65%","3.24%","Webinar registration","67"],
+  ["12/17","Donor tier 1","428","Your Gift is Carrying the Revival Forward—Thank You","25.47%","5.61%","Webinar registration","8"],
   ["12/23","EOY - Jason's donors","122","Join me for a first look at the impact of the 2024 National Eucharistic Congress","22.95%","21.43%","Webinar registration","5"],
   ["12/23","EOY - Kris's donors","6,321","Merry Christmas and thank you for walking with us!","26.37%","5.70%","Bp. Cozzens Advent reflection","77"],
   ["12/29","EOY","56,726","Your Gift Will Shape 2026 and Beyond","36.09%","0.31%","Donate","40"],
   ["12/29","HRN","53,934","Linger with Jesus at the manger","37.96%","3.03%","How to Live a Eucharistic Life","572"],
   ["12/31","EOY","53,976","Your Gift Tonight Carries Revival Into 2026","35.00%","0.46%","Donate","79"],
-  ["1/9","NEP","52,022","ðºð¸ See the exciting details of the 2026 National Eucharistic Pilgrimage!","23.26%","1.95%","NEP Website","411"],
+  ["1/9","NEP","52,022","🇺🇸 See the exciting details of the 2026 National Eucharistic Pilgrimage!","23.26%","1.95%","NEP Website","411"],
   ["1/14","Manna","61,254","Make this the year you fall in love with prayer","37.95%","7.56%","Manna Landing Page","1730"],
   ["1/16","HOP email #4","50,120","The one prayer that will transform your 2026","37.94%","6.18%","Manna Landing Page","1189"],
   ["1/21","HRN","50,765","She saw the Eucharist save her marriage","33.18%","2.39%","How to Live a Eucharistic Life","414"],
   ["1/30","HOP email #5","49,202","Would you pray for me?","38.20%","4.35%","Manna Landing page","836"],
   ["2/3","General","56,055","We invite you to the National Eucharistic Congress in 2027","32.53%","5.38%","NEC Website","1263"],
-  ["2/6","Manna","60,005","Take this 40-day challenge for Lent ð","38.67%","8.11%","Manna Landing Page","1949"],
-  ["2/12","Manna special","4,429","We need your feedback! ð","45.20%","16.68%","Manna survey","311"],
+  ["2/6","Manna","60,005","Take this 40-day challenge for Lent 🙏","38.67%","8.11%","Manna Landing Page","1949"],
+  ["2/12","Manna special","4,429","We need your feedback! 🙏","45.20%","16.68%","Manna survey","311"],
   ["2/13","HRN","49,693","How a prayer of surrender helped a broken family forgive","35.47%","3.24%","How to Live a Eucharistic Life","534"],
   ["2/18","NEP","49,308","Register NOW for the National Eucharistic Pilgrimage ","24.53%","3.89%","Registration","585"],
   ["2/20","HOP email #6","48,174","This Lent, learn to surrender","37.61%","4.83%","Manna Landing page","933"],
-  ["2/25","Manna","58,843","Your 40-day Lenten prayer challenge starts TOMORROW ð","38.21%","8.44%","Manna Landing Page","1934"],
+  ["2/25","Manna","58,843","Your 40-day Lenten prayer challenge starts TOMORROW 🙏","38.21%","8.44%","Manna Landing Page","1934"],
   ["3/2/2026","NEP","47,443","Take a look at the National Eucharistic Pilgrimage route for 2026","28.92%","15.03%","NEP Route","1980"],
   ["3/6/2026","HOP email #6","46,632","Read this if you already broke your Lenten fast","37.34%","5.31%","Manna Landing page","1021"],
   ["3/11/2026","NEP","47,204","Walk alongside Jesus this summer. Register today!","23.08%","5.07%","Registration","720"],
-  ["3/12/2026","Manna","57,606","Need a reset for your Lenten prayer? Start here. ð","38.22%","7.15%","Manna Landing Page","1600"],
+  ["3/12/2026","Manna","57,606","Need a reset for your Lenten prayer? Start here. 🙏","38.22%","7.15%","Manna Landing Page","1600"],
   ["3/18/2026","General","50,247","Register for the National Eucharistic Pilgrimage","25.77%","6.31%","Registration","1077"],
   ["3/19/2026","HRN","47,698","7 surprising facts about St. Joseph","40.11%","3.89%","How to Live a Eucharistic Life","684"],
   ["3/20/2026","HOP email #7","45,874","Why Catholics need to stop \"winging it\" with prayer","37.51%","6.22%","Manna Landing page","1102"],
-  ["3/25/2026","Manna","56,817","Holy Week: The most powerful week for prayer all year ð","39.83%","7.99%","Manna Landing Page","1708"],
+  ["3/25/2026","Manna","56,817","Holy Week: The most powerful week for prayer all year 🙏","39.83%","7.99%","Manna Landing Page","1708"],
   ["3/27/2026","HRN","47,195","Walk with Jesus. Pray for the nation.","37.00%","5.46%","NEP Registration","872"]
 ];
 
@@ -298,23 +336,23 @@ const mannaTotalClicks = mannaEmails.reduce((s,e) => s + e.clicks, 0);
 // ==================== KEY TAKEAWAYS ====================
 
 const takeaways = [
-  `<strong>NEP Pilgrimage route email drove highest engagement</strong> â The Mar 2 email about the 2026 Pilgrimage route achieved a 15.03% CTR, the highest of any mass-audience email, signaling strong grassroots excitement.`,
-  `<strong>Manna app emails consistently outperform</strong> â Averaging ${fmtPct(mannaAvgCTR)} CTR and ${fmtPct(mannaAvgOpen)} open rate, Manna emails are the strongest performing category. The Lenten challenges (8.44% CTR) were especially effective.`,
-  `<strong>Facebook Reels dominate views</strong> â Reels account for ${Math.round(fbYTD.formatViews.Reels / fbYTD.views * 100)}% of YTD Facebook views (${fmt(fbYTD.formatViews.Reels)}), but ad spend is shifting: ads views are up 84% YoY while organic is down 65%.`,
-  `<strong>Instagram rebounded in March</strong> â After a -0.3% follower decline in February, IG grew 0.1% in March with views nearly doubling (231K â 437K) and shares up 4x (451 â 1,797).`,
-  `<strong>Heart of Prayer series sustains engagement</strong> â HOP emails maintain strong open rates (~37-38%) through 7 installments, proving the series format works for ongoing audience nurture.`,
-  `<strong>EOY fundraising drove modest direct clicks</strong> â While EOY emails had high open rates (35-36%), donation CTRs remained under 0.5%, suggesting donors may be giving through other channels or need stronger calls to action.`
+  `<strong>NEP Pilgrimage route email drove highest engagement</strong> — The Mar 2 email about the 2026 Pilgrimage route achieved a 15.03% CTR, the highest of any mass-audience email, signaling strong grassroots excitement.`,
+  `<strong>Manna app emails consistently outperform</strong> — Averaging ${fmtPct(mannaAvgCTR)} CTR and ${fmtPct(mannaAvgOpen)} open rate, Manna emails are the strongest performing category. The Lenten challenges (8.44% CTR) were especially effective.`,
+  `<strong>Facebook Reels dominate views</strong> — Reels account for ${Math.round(fbYTD.formatViews.Reels / fbYTD.views * 100)}% of YTD Facebook views (${fmt(fbYTD.formatViews.Reels)}), but ad spend is shifting: ads views are up 84% YoY while organic is down 65%.`,
+  `<strong>Instagram rebounded in March</strong> — After a -0.3% follower decline in February, IG grew 0.1% in March with views nearly doubling (231K → 437K) and shares up 4x (451 → 1,797).`,
+  `<strong>Heart of Prayer series sustains engagement</strong> — HOP emails maintain strong open rates (~37-38%) through 7 installments, proving the series format works for ongoing audience nurture.`,
+  `<strong>EOY fundraising drove modest direct clicks</strong> — While EOY emails had high open rates (35-36%), donation CTRs remained under 0.5%, suggesting donors may be giving through other channels or need stronger calls to action.`
 ];
 document.getElementById('takeaways-list').innerHTML = takeaways.map(t => `<li>${t}</li>`).join('');
 
 // ==================== EMAIL KPIs ====================
 
 document.getElementById('email-kpis').innerHTML = `
-  <div class="kpi-card"><div class="label">Total Emails Sent</div><div class="value">${totalEmails}</div><div class="sub">Oct 2025 â Mar 2026</div></div>
+  <div class="kpi-card"><div class="label">Total Emails Sent</div><div class="value">${totalEmails}</div><div class="sub">Oct 2025 – Mar 2026</div></div>
   <div class="kpi-card"><div class="label">Avg Open Rate</div><div class="value" style="color:#3b82f6">${fmtPct(avgOpenRate)}</div></div>
   <div class="kpi-card"><div class="label">Avg CTR</div><div class="value" style="color:#10b981">${fmtPct(avgCTR)}</div></div>
   <div class="kpi-card"><div class="label">Total Clicks</div><div class="value">${totalClicks.toLocaleString()}</div></div>
-  <div class="kpi-card"><div class="label">Top CTR Email</div><div class="value" style="font-size:18px;color:#ef4444">${fmtPct(topPerformerByCTR.ctr)}</div><div class="sub">${topPerformerByCTR.type} â ${topPerformerByCTR.date}</div></div>
+  <div class="kpi-card"><div class="label">Top CTR Email</div><div class="value" style="font-size:18px;color:#ef4444">${fmtPct(topPerformerByCTR.ctr)}</div><div class="sub">${topPerformerByCTR.type} — ${topPerformerByCTR.date}</div></div>
 `;
 
 // ==================== EMAIL CHARTS ====================
@@ -395,12 +433,12 @@ top10.forEach((e, i) => {
 // ==================== FACEBOOK KPIs ====================
 
 document.getElementById('fb-kpis').innerHTML = `
-  <div class="kpi-card"><div class="label">YTD Views</div><div class="value">${fmt(fbYTD.views)}</div><div class="change down">â ${Math.abs(fbYTD.viewsChange)}% YoY</div></div>
-  <div class="kpi-card"><div class="label">Organic Views</div><div class="value" style="color:#3b82f6">${fmt(fbYTD.organic)}</div><div class="change down">â ${Math.abs(fbYTD.organicChange)}% YoY</div></div>
-  <div class="kpi-card"><div class="label">Ads Views</div><div class="value" style="color:#f59e0b">${fmt(fbYTD.ads)}</div><div class="change up">â ${fbYTD.adsChange}% YoY</div></div>
+  <div class="kpi-card"><div class="label">YTD Views</div><div class="value">${fmt(fbYTD.views)}</div><div class="change down">↓ ${Math.abs(fbYTD.viewsChange)}% YoY</div></div>
+  <div class="kpi-card"><div class="label">Organic Views</div><div class="value" style="color:#3b82f6">${fmt(fbYTD.organic)}</div><div class="change down">↓ ${Math.abs(fbYTD.organicChange)}% YoY</div></div>
+  <div class="kpi-card"><div class="label">Ads Views</div><div class="value" style="color:#f59e0b">${fmt(fbYTD.ads)}</div><div class="change up">↑ ${fbYTD.adsChange}% YoY</div></div>
   <div class="kpi-card"><div class="label">Viewers</div><div class="value">${fmt(fbYTD.viewers)}</div></div>
-  <div class="kpi-card"><div class="label">Content Interactions</div><div class="value" style="color:#8b5cf6">${fmt(fbYTD.interactions)}</div><div class="change down">â ${Math.abs(fbYTD.interactionsChange)}% YoY</div></div>
-  <div class="kpi-card"><div class="label">YTD Follows</div><div class="value" style="color:#10b981">${fmt(fbYTD.follows)}</div><div class="change down">â ${Math.abs(fbYTD.followsChange)}% YoY</div><div class="sub">Lifetime: ${fbYTD.followers.toLocaleString()}</div></div>
+  <div class="kpi-card"><div class="label">Content Interactions</div><div class="value" style="color:#8b5cf6">${fmt(fbYTD.interactions)}</div><div class="change down">↓ ${Math.abs(fbYTD.interactionsChange)}% YoY</div></div>
+  <div class="kpi-card"><div class="label">YTD Follows</div><div class="value" style="color:#10b981">${fmt(fbYTD.follows)}</div><div class="change down">↓ ${Math.abs(fbYTD.followsChange)}% YoY</div><div class="sub">Lifetime: ${fbYTD.followers.toLocaleString()}</div></div>
 `;
 
 // FB Format Views
@@ -472,11 +510,11 @@ const igViewsChange = ((igMar.igViews - igFeb.igViews) / igFeb.igViews * 100).to
 const igSharesChange = ((igMar.igShares - igFeb.igShares) / igFeb.igShares * 100).toFixed(1);
 
 document.getElementById('ig-kpis').innerHTML = `
-  <div class="kpi-card"><div class="label">Followers (Mar)</div><div class="value">${igMar.igFollowers.toLocaleString()}</div><div class="change ${igMar.igGrowth >= 0 ? 'up' : 'down'}">${igMar.igGrowth >= 0 ? 'â' : 'â'} ${Math.abs(igMar.igGrowth)}% MoM</div></div>
-  <div class="kpi-card"><div class="label">Views (Mar)</div><div class="value" style="color:#8b5cf6">${fmt(igMar.igViews)}</div><div class="change up">â ${igViewsChange}% MoM</div></div>
-  <div class="kpi-card"><div class="label">Interactions (Mar)</div><div class="value" style="color:#ec4899">${fmt(igMar.igInteractions)}</div><div class="change up">â ${((igMar.igInteractions - igFeb.igInteractions)/igFeb.igInteractions*100).toFixed(1)}% MoM</div></div>
-  <div class="kpi-card"><div class="label">Shares (Mar)</div><div class="value" style="color:#f59e0b">${fmt(igMar.igShares)}</div><div class="change up">â ${igSharesChange}% MoM</div></div>
-  <div class="kpi-card"><div class="label">Saves (Mar)</div><div class="value" style="color:#10b981">${fmt(igMar.igSaves)}</div><div class="change up">â ${((igMar.igSaves - igFeb.igSaves)/igFeb.igSaves*100).toFixed(1)}% MoM</div></div>
+  <div class="kpi-card"><div class="label">Followers (Mar)</div><div class="value">${igMar.igFollowers.toLocaleString()}</div><div class="change ${igMar.igGrowth >= 0 ? 'up' : 'down'}">${igMar.igGrowth >= 0 ? '↑' : '↓'} ${Math.abs(igMar.igGrowth)}% MoM</div></div>
+  <div class="kpi-card"><div class="label">Views (Mar)</div><div class="value" style="color:#8b5cf6">${fmt(igMar.igViews)}</div><div class="change up">↑ ${igViewsChange}% MoM</div></div>
+  <div class="kpi-card"><div class="label">Interactions (Mar)</div><div class="value" style="color:#ec4899">${fmt(igMar.igInteractions)}</div><div class="change up">↑ ${((igMar.igInteractions - igFeb.igInteractions)/igFeb.igInteractions*100).toFixed(1)}% MoM</div></div>
+  <div class="kpi-card"><div class="label">Shares (Mar)</div><div class="value" style="color:#f59e0b">${fmt(igMar.igShares)}</div><div class="change up">↑ ${igSharesChange}% MoM</div></div>
+  <div class="kpi-card"><div class="label">Saves (Mar)</div><div class="value" style="color:#10b981">${fmt(igMar.igSaves)}</div><div class="change up">↑ ${((igMar.igSaves - igFeb.igSaves)/igFeb.igSaves*100).toFixed(1)}% MoM</div></div>
 `;
 
 // IG Comparison chart
@@ -492,7 +530,135 @@ new Chart(document.getElementById('igCompareChart'), {
   options: { responsive: true, plugins: { legend: { position: 'top' } }, scales: { y: { beginAtZero: true, ticks: { callback: v => fmt(v) } } } }
 });
 
-// ==================== MANNA KPIs ====================
+// ==================== MANNA APP DATA (PostHog) ====================
+
+const mannaWAU = [
+  ["2025-05-11",2],["2025-05-18",6],["2025-05-25",4],["2025-06-01",409],["2025-06-08",438],
+  ["2025-06-15",592],["2025-06-22",714],["2025-06-29",355],["2025-07-06",312],["2025-07-13",321],
+  ["2025-07-20",283],["2025-07-27",305],["2025-08-03",255],["2025-08-10",258],["2025-08-17",516],
+  ["2025-08-24",2256],["2025-08-31",947],["2025-09-07",559],["2025-09-14",417],["2025-09-21",338],
+  ["2025-09-28",296],["2025-10-05",259],["2025-10-12",287],["2025-10-19",493],["2025-10-26",1630],
+  ["2025-11-02",2424],["2025-11-09",1345],["2025-11-16",1844],["2025-11-23",727],["2025-11-30",2302],
+  ["2025-12-07",1406],["2025-12-14",1142],["2025-12-21",849],["2025-12-28",339],["2026-01-04",401],
+  ["2026-01-11",353],["2026-01-18",1955],["2026-01-25",1617],["2026-02-01",1494],["2026-02-08",1795],
+  ["2026-02-15",3619],["2026-02-22",1955],["2026-03-01",2184],["2026-03-08",1439],["2026-03-15",1325],
+  ["2026-03-22",987],["2026-03-29",1194]
+];
+
+const mannaGrowth = [
+  ["2025-06-01",406],["2025-06-08",341],["2025-06-15",494],["2025-06-22",579],["2025-06-29",201],
+  ["2025-07-06",176],["2025-07-13",176],["2025-07-20",155],["2025-07-27",160],["2025-08-03",116],
+  ["2025-08-10",125],["2025-08-17",357],["2025-08-24",2041],["2025-08-31",603],["2025-09-07",295],
+  ["2025-09-14",177],["2025-09-21",135],["2025-09-28",96],["2025-10-05",96],["2025-10-12",115],
+  ["2025-10-19",229],["2025-10-26",1273],["2025-11-02",1867],["2025-11-09",882],["2025-11-16",1268],
+  ["2025-11-23",352],["2025-11-30",1410],["2025-12-07",700],["2025-12-14",553],["2025-12-21",371],
+  ["2025-12-28",99],["2026-01-04",131],["2026-01-11",125],["2026-01-18",1292],["2026-01-25",1083],
+  ["2026-02-01",1023],["2026-02-08",1192],["2026-02-15",2339],["2026-02-22",1096],["2026-03-01",1263],
+  ["2026-03-08",764],["2026-03-15",792],["2026-03-22",533],["2026-03-29",629]
+];
+
+const mannaPlays = [
+  ["2025-06-01",523],["2025-06-08",517],["2025-06-15",447],["2025-06-22",507],["2025-06-29",210],
+  ["2025-07-06",254],["2025-07-13",250],["2025-07-20",264],["2025-07-27",212],["2025-08-03",169],
+  ["2025-08-10",163],["2025-08-17",237],["2025-08-24",1004],["2025-08-31",583],["2025-09-07",469],
+  ["2025-09-14",312],["2025-09-21",257],["2025-09-28",289],["2025-10-05",250],["2025-10-12",345],
+  ["2025-10-19",431],["2025-10-26",689],["2025-11-02",934],["2025-11-09",577],["2025-11-16",764],
+  ["2025-11-23",369],["2025-11-30",2991],["2025-12-07",2179],["2025-12-14",1412],["2025-12-21",933],
+  ["2025-12-28",241],["2026-01-04",428],["2026-01-11",458],["2026-01-18",1258],["2026-01-25",835],
+  ["2026-02-01",836],["2026-02-08",1335],["2026-02-15",6723],["2026-02-22",4310],["2026-03-01",4146],
+  ["2026-03-08",3162],["2026-03-15",2749],["2026-03-22",2846],["2026-03-29",2137]
+];
+
+const mannaRetention = [
+  ["2025-06-01",406,131],["2025-06-08",341,75],["2025-06-15",494,153],["2025-06-22",579,244],
+  ["2025-06-29",201,73],["2025-07-06",176,80],["2025-07-13",176,54],["2025-07-20",155,58],
+  ["2025-07-27",160,53],["2025-08-03",116,36],["2025-08-10",125,37],["2025-08-17",357,99],
+  ["2025-08-24",2041,467],["2025-08-31",603,150],["2025-09-07",295,99],["2025-09-14",177,45],
+  ["2025-09-21",135,25],["2025-09-28",96,15],["2025-10-05",96,28],["2025-10-12",115,26],
+  ["2025-10-19",229,69],["2025-10-26",1273,337],["2025-11-02",1867,392],["2025-11-09",882,173],
+  ["2025-11-16",1268,288],["2025-11-23",352,99],["2025-11-30",1410,338],["2025-12-07",700,129],
+  ["2025-12-14",553,58],["2025-12-21",371,58],["2025-12-28",99,19],["2026-01-04",131,21],
+  ["2026-01-11",125,22],["2026-01-18",1292,195],["2026-01-25",1083,152],["2026-02-01",1023,101],
+  ["2026-02-08",1192,162],["2026-02-15",2339,265],["2026-02-22",1096,113],["2026-03-01",1263,92]
+];
+
+// Helper: format week label
+const fmtWeek = d => { const dt = new Date(d); return dt.toLocaleDateString('en-US', {month:'short', day:'numeric'}); };
+
+// Compute KPIs
+const peakWAU = Math.max(...mannaWAU.map(r => r[1]));
+const peakWAUWeek = mannaWAU.find(r => r[1] === peakWAU)[0];
+const lastFullWeekWAU = mannaWAU[mannaWAU.length - 1][1];
+const prevWeekWAU = mannaWAU[mannaWAU.length - 2][1];
+const wauTrend = ((lastFullWeekWAU - prevWeekWAU) / prevWeekWAU * 100).toFixed(1);
+const totalNewUsers = mannaGrowth.reduce((s, r) => s + r[1], 0);
+const totalPlays = mannaPlays.reduce((s, r) => s + r[1], 0);
+const recentRetention = mannaRetention.slice(-8, -2); // skip last 2 (too recent)
+const avgRetention = (recentRetention.reduce((s, r) => s + (r[2]/r[1]*100), 0) / recentRetention.length).toFixed(1);
+const lastWeekPlays = mannaPlays[mannaPlays.length - 1][1];
+
+document.getElementById('manna-app-kpis').innerHTML = `
+  <div class="kpi-card" style="border-left:4px solid #8b5cf6"><div class="label">Users Last Full Week</div><div class="value" style="color:#8b5cf6">${lastFullWeekWAU.toLocaleString()}</div><div class="change ${parseFloat(wauTrend)>=0?'up':'down'}">${parseFloat(wauTrend)>=0?'↑':'↓'} ${Math.abs(wauTrend)}% vs prior week</div></div>
+  <div class="kpi-card" style="border-left:4px solid #8b5cf6"><div class="label">Peak Weekly Users</div><div class="value" style="color:#8b5cf6">${peakWAU.toLocaleString()}</div><div class="sub">Week of ${fmtWeek(peakWAUWeek)}</div></div>
+  <div class="kpi-card" style="border-left:4px solid #8b5cf6"><div class="label">Total New Users (All Time)</div><div class="value" style="color:#8b5cf6">${totalNewUsers.toLocaleString()}</div><div class="sub">Since June 2025</div></div>
+  <div class="kpi-card" style="border-left:4px solid #8b5cf6"><div class="label">Avg First-Week Return Rate</div><div class="value" style="color:#8b5cf6">${avgRetention}%</div><div class="sub">Recent 8-week avg</div></div>
+  <div class="kpi-card" style="border-left:4px solid #8b5cf6"><div class="label">Content Plays (All Time)</div><div class="value" style="color:#8b5cf6">${totalPlays.toLocaleString()}</div></div>
+  <div class="kpi-card" style="border-left:4px solid #8b5cf6"><div class="label">Plays Last Week</div><div class="value" style="color:#8b5cf6">${lastWeekPlays.toLocaleString()}</div></div>
+`;
+
+// Key Takeaway
+document.getElementById('manna-key-takeaway').innerHTML = `Manna's weekly active users peaked at <strong>3,600+</strong> during the mid-February Lenten challenge push — the same campaign that drove an 8.44% email CTR. The app has seen <strong>${totalNewUsers.toLocaleString()} total new users</strong> since launch, with growth closely tied to email campaigns (the late-August, late-October, and mid-February spikes all align with major Manna email sends). Content plays have grown substantially, reaching <strong>6,700+ plays/week</strong> at peak. The core challenge is retention: only about <strong>${avgRetention}%</strong> of new users come back after their first week, meaning most campaign-driven downloads don't convert to habitual users. Focusing on onboarding flow improvements and re-engagement push notifications could significantly increase the ratio of lasting users per acquisition dollar spent.`;
+
+// ==================== MANNA CHARTS ====================
+
+const wauLabels = mannaWAU.map(r => fmtWeek(r[0]));
+const wauValues = mannaWAU.map(r => r[1]);
+new Chart(document.getElementById('mannaWauChart'), {
+  type: 'line',
+  data: { labels: wauLabels, datasets: [{
+    label: 'Weekly Users', data: wauValues,
+    borderColor: '#8b5cf6', backgroundColor: 'rgba(139,92,246,0.1)', fill: true,
+    tension: 0.3, pointRadius: 2, borderWidth: 2
+  }]},
+  options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { callback: v => fmt(v) } }, x: { ticks: { maxTicksLimit: 12 } } } }
+});
+
+const growthLabels = mannaGrowth.map(r => fmtWeek(r[0]));
+const growthValues = mannaGrowth.map(r => r[1]);
+new Chart(document.getElementById('mannaGrowthChart'), {
+  type: 'bar',
+  data: { labels: growthLabels, datasets: [{
+    label: 'New Users', data: growthValues,
+    backgroundColor: 'rgba(139,92,246,0.7)', borderRadius: 3
+  }]},
+  options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { callback: v => fmt(v) } }, x: { ticks: { maxTicksLimit: 12 } } } }
+});
+
+const playsLabels = mannaPlays.map(r => fmtWeek(r[0]));
+const playsValues = mannaPlays.map(r => r[1]);
+new Chart(document.getElementById('mannaPlaysChart'), {
+  type: 'line',
+  data: { labels: playsLabels, datasets: [{
+    label: 'Content Plays', data: playsValues,
+    borderColor: '#f59e0b', backgroundColor: 'rgba(245,158,11,0.1)', fill: true,
+    tension: 0.3, pointRadius: 2, borderWidth: 2
+  }]},
+  options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { callback: v => fmt(v) } }, x: { ticks: { maxTicksLimit: 12 } } } }
+});
+
+const retLabels = mannaRetention.map(r => fmtWeek(r[0]));
+const retValues = mannaRetention.map(r => +(r[2]/r[1]*100).toFixed(1));
+new Chart(document.getElementById('mannaRetentionChart'), {
+  type: 'bar',
+  data: { labels: retLabels, datasets: [{
+    label: 'Return Rate %', data: retValues,
+    backgroundColor: retValues.map(v => v >= 20 ? 'rgba(16,185,129,0.7)' : v >= 10 ? 'rgba(245,158,11,0.7)' : 'rgba(239,68,68,0.7)'),
+    borderRadius: 3
+  }]},
+  options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, max: 50, ticks: { callback: v => v + '%' } }, x: { ticks: { maxTicksLimit: 12 } } } }
+});
+
+// ==================== MANNA EMAIL KPIs ====================
 
 document.getElementById('manna-kpis').innerHTML = `
   <div class="kpi-card" style="border-left: 4px solid #8b5cf6"><div class="label">Manna Emails Sent</div><div class="value">${mannaEmails.length}</div></div>
@@ -502,8 +668,8 @@ document.getElementById('manna-kpis').innerHTML = `
 `;
 
 document.getElementById('manna-insight-box').innerHTML = `
-  <h4>ð¡ Manna App Insight</h4>
-  <p>Manna app emails consistently drive the highest engagement across all email categories. The Lenten 40-day prayer challenge (Feb 25) achieved an 8.44% CTR â the highest among mass-audience Manna sends. The special feedback survey email (Feb 12) to a small segment of 4,429 subscribers achieved 16.68% CTR and 45.20% open rate, indicating a highly engaged core user base. The "Heart of Prayer" series, which drives traffic to the Manna app, also maintains strong ~5-7% CTRs through 7 installments.</p>
+  <h4>💡 Manna Email Insight</h4>
+  <p>Manna app emails consistently drive the highest engagement across all email categories. The Lenten 40-day prayer challenge (Feb 25) achieved an 8.44% CTR — the highest among mass-audience Manna sends. The special feedback survey email (Feb 12) to a small segment of 4,429 subscribers achieved 16.68% CTR and 45.20% open rate, indicating a highly engaged core user base. The "Heart of Prayer" series, which drives traffic to the Manna app, also maintains strong ~5-7% CTRs through 7 installments.</p>
 `;
 
 </script>
