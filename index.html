@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEC Marketing Insights Dashboard</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f8f9fa; color: #1a1a2e; line-height: 1.6; }
+.header { background: linear-gradient(135deg, #1a1a2e, #16213e); color: #fff; padding: 32px 40px; }
+.header h1 { font-size: 28px; font-weight: 700; }
+.header .subtitle { font-size: 14px; color: #a0aec0; margin-top: 4px; }
+.container { max-width: 1400px; margin: 0 auto; padding: 24px; }
+.section { margin-bottom: 32px; }
+.section-title { font-size: 20px; font-weight: 700; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid #eee; display: flex; align-items: center; gap: 8px; }
+.section-title .icon { font-size: 24px; }
+
+/* Takeaways callout */
+.takeaways { background: #fffbeb; border: 1px solid #f59e0b; border-radius: 10px; padding: 20px 24px; margin-bottom: 32px; }
+.takeaways h3 { color: #92400e; font-size: 16px; margin-bottom: 12px; }
+.takeaways ul { list-style: none; padding: 0; }
+.takeaways li { padding: 6px 0; padding-left: 24px; position: relative; font-size: 14px; color: #78350f; }
+.takeaways li::before { content: "â¦"; position: absolute; left: 0; color: #f59e0b; font-weight: bold; }
+
+/* KPI cards */
+.kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px; }
+.kpi-card { background: #fff; border: 1px solid #eee; border-radius: 10px; padding: 20px; text-align: center; }
+.kpi-card .label { font-size: 12px; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+.kpi-card .value { font-size: 28px; font-weight: 700; }
+.kpi-card .change { font-size: 12px; margin-top: 4px; }
+.kpi-card .change.up { color: #10b981; }
+.kpi-card .change.down { color: #ef4444; }
+.kpi-card .sub { font-size: 11px; color: #9ca3af; margin-top: 2px; }
+
+/* Chart containers */
+.chart-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 20px; margin-bottom: 24px; }
+.chart-card { background: #fff; border: 1px solid #eee; border-radius: 10px; padding: 20px; }
+.chart-card h4 { font-size: 14px; font-weight: 600; margin-bottom: 12px; color: #374151; }
+.chart-card canvas { max-height: 300px; }
+
+/* Tables */
+.data-table { width: 100%; border-collapse: collapse; font-size: 13px; background: #fff; border-radius: 10px; overflow: hidden; border: 1px solid #eee; }
+.data-table th { background: #f3f4f6; padding: 10px 12px; text-align: left; font-weight: 600; color: #374151; font-size: 12px; text-transform: uppercase; letter-spacing: 0.3px; }
+.data-table td { padding: 10px 12px; border-top: 1px solid #f3f4f6; }
+.data-table tr:hover { background: #f9fafb; }
+
+/* Manna section */
+.manna-insight { background: #f5f3ff; border: 1px solid #8b5cf6; border-radius: 10px; padding: 16px 20px; margin-top: 16px; }
+.manna-insight h4 { color: #6d28d9; font-size: 14px; margin-bottom: 8px; }
+.manna-insight p { font-size: 13px; color: #5b21b6; }
+
+/* Color-coded badges */
+.badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; color: #fff; }
+.badge-manna { background: #8b5cf6; }
+.badge-hrn { background: #3b82f6; }
+.badge-nep { background: #f59e0b; color: #000; }
+.badge-donor { background: #10b981; }
+.badge-hop { background: #ec4899; }
+.badge-general { background: #6b7280; }
+.badge-eoy { background: #ef4444; }
+
+/* Tabs */
+.tab-nav { display: flex; gap: 4px; margin-bottom: 16px; }
+.tab-btn { padding: 8px 16px; border: 1px solid #e5e7eb; border-radius: 8px 8px 0 0; background: #f9fafb; cursor: pointer; font-size: 13px; font-weight: 500; border-bottom: none; }
+.tab-btn.active { background: #fff; border-bottom: 2px solid #fff; margin-bottom: -1px; color: #1a1a2e; font-weight: 700; }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+@media (max-width: 768px) {
+  .chart-grid { grid-template-columns: 1fr; }
+  .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>NEC Marketing Insights</h1>
+  <div class="subtitle">Dashboard refreshed: April 5, 2026 &nbsp;|&nbsp; Data sources: Google Sheets, Meta Business Suite</div>
+</div>
+
+<div class="container">
+
+<!-- KEY TAKEAWAYS -->
+<div class="takeaways">
+  <h3>Key Takeaways</h3>
+  <ul id="takeaways-list"></ul>
+</div>
+
+<!-- EMAIL PERFORMANCE -->
+<div class="section">
+  <div class="section-title"><span class="icon">ð§</span> Email Performance</div>
+  <div class="kpi-grid" id="email-kpis"></div>
+  <div class="chart-grid">
+    <div class="chart-card">
+      <h4>Open Rate by Email Type</h4>
+      <canvas id="openRateChart"></canvas>
+    </div>
+    <div class="chart-card">
+      <h4>CTR by Email Type</h4>
+      <canvas id="ctrChart"></canvas>
+    </div>
+  </div>
+  <div class="chart-grid">
+    <div class="chart-card" style="grid-column: 1 / -1;">
+      <h4>Email Performance Timeline</h4>
+      <canvas id="timelineChart"></canvas>
+    </div>
+  </div>
+  <div class="chart-card" style="margin-top: 20px;">
+    <h4>Top 10 Emails by CTR</h4>
+    <table class="data-table" id="top-emails-table">
+      <thead>
+        <tr><th>#</th><th>Date</th><th>Type</th><th>Subject</th><th>Delivered</th><th>Open Rate</th><th>CTR</th><th>Clicks</th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- FACEBOOK PERFORMANCE -->
+<div class="section">
+  <div class="section-title"><span class="icon">ð</span> Facebook Performance (YTD: Jan 1 â Apr 5, 2026)</div>
+  <div class="kpi-grid" id="fb-kpis"></div>
+  <div class="chart-grid">
+    <div class="chart-card">
+      <h4>Views by Content Format</h4>
+      <canvas id="fbFormatChart"></canvas>
+    </div>
+    <div class="chart-card">
+      <h4>Organic vs. Ads Views</h4>
+      <canvas id="fbOrgAdsChart"></canvas>
+    </div>
+  </div>
+  <div class="chart-grid">
+    <div class="chart-card">
+      <h4>Content Interactions by Format</h4>
+      <canvas id="fbInteractionsChart"></canvas>
+    </div>
+    <div class="chart-card">
+      <h4>Audience Trends (YTD)</h4>
+      <canvas id="fbAudienceChart"></canvas>
+    </div>
+  </div>
+</div>
+
+<!-- INSTAGRAM PERFORMANCE -->
+<div class="section">
+  <div class="section-title"><span class="icon">ð¸</span> Instagram Performance</div>
+  <div class="kpi-grid" id="ig-kpis"></div>
+  <div class="chart-grid">
+    <div class="chart-card" style="grid-column: 1 / -1;">
+      <h4>Instagram: February vs. March 2026</h4>
+      <canvas id="igCompareChart"></canvas>
+    </div>
+  </div>
+</div>
+
+<!-- MANNA APP INSIGHTS -->
+<div class="section">
+  <div class="section-title"><span class="icon">ð±</span> Manna App Insights</div>
+  <div class="kpi-grid" id="manna-kpis"></div>
+  <div class="manna-insight" id="manna-insight-box"></div>
+</div>
+
+</div>
+
+<script>
+// ==================== DATA ====================
+
+const emailData = [
+  ["10/21","NEP","75,093","ð£Last call! Perpetual pilgrim applications are due tomorrow!","19.50%","0.50%","Application","301"],
+  ["10/24","Manna","4,367","ðThe Manna app just got even better!","39.91%","6.78%","Manna landing page","238"],
+  ["10/29","Donor tier 2","20","Revival Keeps GrowingâThanks to You","10.00%","5.00%","Donor link","1"],
+  ["10/29","Donor tier 3","6,069","Revival Keeps GrowingâThanks to You","18.14%","1.47%","Manna small group","40"],
+  ["10/29","Donor tier 1","429","Revival Keeps GrowingâThanks to You","24.71%","4.20%","Prayer intentions","11"],
+  ["10/30","HRN","125,796","Join the Eucharistic Missionary Movement!","20.58%","1.07%","Stepanek blog","514"],
+  ["10/31","Manna","72,461","Bring Eucharistic Revival right to your fingertipsð±","36.48%","6.57%","Manna landing page","1767"],
+  ["11/7","Manna","71,566","Press play on prayer with the Manna app â±ï¸ð","33.35%","7.20%","Manna landing page","2248"],
+  ["11/12","General","134,382","A new chapter for the National Eucharistic Congress","43.22%","3.71%","NEC Website","4118"],
+  ["11/14","Manna","72,177","Make deeper prayer a daily habit ð","32.59%","4.90%","Manna landing page","1395"],
+  ["11/19","Manna","69,800","Your daily prayer life just got a whole lot easier â¨","35.00%","7.00%","Manna landing page","1852"],
+  ["11/21","HRN","130,135","How to prepare for the National Eucharistic Pilgrimage","26.07%","2.97%","NEC Website","1464"],
+  ["11/25","NEP - Giving Tuesday","78,281","Fuel the National Eucharistic PilgrimageâDonate Today!","22.68%","0.26%","Donate","54"],
+  ["11/26","Manna","66,729","Manna's got a treat for your prayer life this Thanksgiving ð¦","36.69%","5.79%","Manna Landing page","1443"],
+  ["12/3","HOP email #1","130,041","Join us this Advent: Heart of Prayer","38.81%","7.17%","Manna Landing page","3791"],
+  ["12/4","NEP","75,613","Introducing the 2026 Pilgrimage route!","20.96%","1.57%","Route","490"],
+  ["12/5","HRN","48,283","The unbroken story of Jesus' love","36.95%","3.18%","How to Live a Eucharistic Life: The Eucharist in the Age of the Apostles","547"],
+  ["12/10","HOP email #2","53,503","What is this Catholic prayer hidden in plain sight?","38.42%","6.44%","Manna Landing page","1361"],
+  ["12/12","Manna","62,694","A new way to pray with the daily readings ð","37.91%","7.50%","Manna Landing page","1862"],
+  ["12/17","Donor tier 2","21","Your Gift is Carrying the Revival ForwardâThank You","47.62%","0.00%","","0"],
+  ["12/17","HOP email #3","50,765","What does the Hail Mary really mean?","36.56%","5.08%","Manna","1019"],
+  ["12/17","Donor tier 3","6,107","Your Gift is Carrying the Revival ForwardâThank You","18.65%","3.24%","Webinar registration","67"],
+  ["12/17","Donor tier 1","428","Your Gift is Carrying the Revival ForwardâThank You","25.47%","5.61%","Webinar registration","8"],
+  ["12/23","EOY - Jason's donors","122","Join me for a first look at the impact of the 2024 National Eucharistic Congress","22.95%","21.43%","Webinar registration","5"],
+  ["12/23","EOY - Kris's donors","6,321","Merry Christmas and thank you for walking with us!","26.37%","5.70%","Bp. Cozzens Advent reflection","77"],
+  ["12/29","EOY","56,726","Your Gift Will Shape 2026 and Beyond","36.09%","0.31%","Donate","40"],
+  ["12/29","HRN","53,934","Linger with Jesus at the manger","37.96%","3.03%","How to Live a Eucharistic Life","572"],
+  ["12/31","EOY","53,976","Your Gift Tonight Carries Revival Into 2026","35.00%","0.46%","Donate","79"],
+  ["1/9","NEP","52,022","ðºð¸ See the exciting details of the 2026 National Eucharistic Pilgrimage!","23.26%","1.95%","NEP Website","411"],
+  ["1/14","Manna","61,254","Make this the year you fall in love with prayer","37.95%","7.56%","Manna Landing Page","1730"],
+  ["1/16","HOP email #4","50,120","The one prayer that will transform your 2026","37.94%","6.18%","Manna Landing Page","1189"],
+  ["1/21","HRN","50,765","She saw the Eucharist save her marriage","33.18%","2.39%","How to Live a Eucharistic Life","414"],
+  ["1/30","HOP email #5","49,202","Would you pray for me?","38.20%","4.35%","Manna Landing page","836"],
+  ["2/3","General","56,055","We invite you to the National Eucharistic Congress in 2027","32.53%","5.38%","NEC Website","1263"],
+  ["2/6","Manna","60,005","Take this 40-day challenge for Lent ð","38.67%","8.11%","Manna Landing Page","1949"],
+  ["2/12","Manna special","4,429","We need your feedback! ð","45.20%","16.68%","Manna survey","311"],
+  ["2/13","HRN","49,693","How a prayer of surrender helped a broken family forgive","35.47%","3.24%","How to Live a Eucharistic Life","534"],
+  ["2/18","NEP","49,308","Register NOW for the National Eucharistic Pilgrimage ","24.53%","3.89%","Registration","585"],
+  ["2/20","HOP email #6","48,174","This Lent, learn to surrender","37.61%","4.83%","Manna Landing page","933"],
+  ["2/25","Manna","58,843","Your 40-day Lenten prayer challenge starts TOMORROW ð","38.21%","8.44%","Manna Landing Page","1934"],
+  ["3/2/2026","NEP","47,443","Take a look at the National Eucharistic Pilgrimage route for 2026","28.92%","15.03%","NEP Route","1980"],
+  ["3/6/2026","HOP email #6","46,632","Read this if you already broke your Lenten fast","37.34%","5.31%","Manna Landing page","1021"],
+  ["3/11/2026","NEP","47,204","Walk alongside Jesus this summer. Register today!","23.08%","5.07%","Registration","720"],
+  ["3/12/2026","Manna","57,606","Need a reset for your Lenten prayer? Start here. ð","38.22%","7.15%","Manna Landing Page","1600"],
+  ["3/18/2026","General","50,247","Register for the National Eucharistic Pilgrimage","25.77%","6.31%","Registration","1077"],
+  ["3/19/2026","HRN","47,698","7 surprising facts about St. Joseph","40.11%","3.89%","How to Live a Eucharistic Life","684"],
+  ["3/20/2026","HOP email #7","45,874","Why Catholics need to stop \"winging it\" with prayer","37.51%","6.22%","Manna Landing page","1102"],
+  ["3/25/2026","Manna","56,817","Holy Week: The most powerful week for prayer all year ð","39.83%","7.99%","Manna Landing Page","1708"],
+  ["3/27/2026","HRN","47,195","Walk with Jesus. Pray for the nation.","37.00%","5.46%","NEP Registration","872"]
+];
+
+const socialData = [
+  { month: "February 2026", igFollowers: 109601, igGrowth: -0.3, igShares: 451, igSaves: 330, igViews: 231127, igInteractions: 13173, fbFollowers: 68320, fbNewFollowers: 471, fbLinkClicks: 10672, fbViews: 841146, liFollowers: null, liNewFollowers: null },
+  { month: "March 2026", igFollowers: 109770, igGrowth: 0.1, igShares: 1797, igSaves: 1339, igViews: 437460, igInteractions: 29430, fbFollowers: 68631, fbNewFollowers: 500, fbLinkClicks: 9820, fbViews: null, liFollowers: 959, liNewFollowers: 31 }
+];
+
+// Facebook YTD data from Meta Business Suite
+const fbYTD = {
+  views: 2395965, viewsChange: -39,
+  organic: 1152888, organicChange: -64.6,
+  ads: 1243070, adsChange: 84.1,
+  viewers: 912882,
+  threeSecViews: 104000, threeSecChange: -73.7,
+  interactions: 65200, interactionsChange: -57.6,
+  watchTime: "19d 3h", watchTimeChange: -77.8,
+  follows: 2800, followsChange: -49.6,
+  netFollows: 2351, netFollowsChange: -40.6,
+  unfollows: 464, unfollowsChange: -71.5,
+  followers: 69642,
+  // Content format views
+  formatViews: { Reels: 1265242, "Multi photo": 719618, Links: 269272, Photo: 104844, Others: 35474, Text: 1503, "Multi media": 12 },
+  formatInteractions: { Reels: 42825, "Multi photo": 16445, Photo: 2196, Links: 1335, Others: 1238, Stories: 913, Text: 225 }
+};
+
+// ==================== HELPERS ====================
+
+function pn(s) { return parseInt(String(s).replace(/,/g, '')) || 0; }
+function pf(s) { return parseFloat(String(s).replace('%','')) || 0; }
+function fmt(n) { if (n >= 1000000) return (n/1000000).toFixed(1) + 'M'; if (n >= 1000) return (n/1000).toFixed(1) + 'K'; return n.toLocaleString(); }
+function fmtPct(n) { return n.toFixed(2) + '%'; }
+
+function categorize(type) {
+  const t = type.toLowerCase();
+  if (t.includes('manna')) return 'Manna';
+  if (t.includes('hrn')) return 'HRN';
+  if (t.includes('nep')) return 'NEP';
+  if (t.includes('hop')) return 'HOP';
+  if (t.includes('eoy')) return 'EOY';
+  if (t.includes('donor')) return 'Donor';
+  if (t.includes('general')) return 'General';
+  return 'Other';
+}
+
+const typeColors = { Manna: '#8b5cf6', HRN: '#3b82f6', NEP: '#f59e0b', Donor: '#10b981', HOP: '#ec4899', General: '#6b7280', EOY: '#ef4444', Other: '#94a3b8' };
+
+// ==================== PROCESS EMAIL DATA ====================
+
+const emails = emailData.map(e => ({
+  date: e[0], type: e[1], delivered: pn(e[2]), subject: e[3],
+  openRate: pf(e[4]), ctr: pf(e[5]), topClicked: e[6], clicks: pn(e[7]),
+  category: categorize(e[1])
+}));
+
+const totalEmails = emails.length;
+const avgOpenRate = emails.reduce((s,e) => s + e.openRate, 0) / totalEmails;
+const avgCTR = emails.reduce((s,e) => s + e.ctr, 0) / totalEmails;
+const totalClicks = emails.reduce((s,e) => s + e.clicks, 0);
+const topPerformerByCTR = [...emails].sort((a,b) => b.ctr - a.ctr)[0];
+
+// By type
+const byCategory = {};
+emails.forEach(e => {
+  if (!byCategory[e.category]) byCategory[e.category] = { count: 0, openRateSum: 0, ctrSum: 0, clicks: 0 };
+  byCategory[e.category].count++;
+  byCategory[e.category].openRateSum += e.openRate;
+  byCategory[e.category].ctrSum += e.ctr;
+  byCategory[e.category].clicks += e.clicks;
+});
+
+// Manna-specific
+const mannaEmails = emails.filter(e => e.category === 'Manna');
+const mannaAvgOpen = mannaEmails.reduce((s,e) => s + e.openRate, 0) / mannaEmails.length;
+const mannaAvgCTR = mannaEmails.reduce((s,e) => s + e.ctr, 0) / mannaEmails.length;
+const mannaTotalClicks = mannaEmails.reduce((s,e) => s + e.clicks, 0);
+
+// ==================== KEY TAKEAWAYS ====================
+
+const takeaways = [
+  `<strong>NEP Pilgrimage route email drove highest engagement</strong> â The Mar 2 email about the 2026 Pilgrimage route achieved a 15.03% CTR, the highest of any mass-audience email, signaling strong grassroots excitement.`,
+  `<strong>Manna app emails consistently outperform</strong> â Averaging ${fmtPct(mannaAvgCTR)} CTR and ${fmtPct(mannaAvgOpen)} open rate, Manna emails are the strongest performing category. The Lenten challenges (8.44% CTR) were especially effective.`,
+  `<strong>Facebook Reels dominate views</strong> â Reels account for ${Math.round(fbYTD.formatViews.Reels / fbYTD.views * 100)}% of YTD Facebook views (${fmt(fbYTD.formatViews.Reels)}), but ad spend is shifting: ads views are up 84% YoY while organic is down 65%.`,
+  `<strong>Instagram rebounded in March</strong> â After a -0.3% follower decline in February, IG grew 0.1% in March with views nearly doubling (231K â 437K) and shares up 4x (451 â 1,797).`,
+  `<strong>Heart of Prayer series sustains engagement</strong> â HOP emails maintain strong open rates (~37-38%) through 7 installments, proving the series format works for ongoing audience nurture.`,
+  `<strong>EOY fundraising drove modest direct clicks</strong> â While EOY emails had high open rates (35-36%), donation CTRs remained under 0.5%, suggesting donors may be giving through other channels or need stronger calls to action.`
+];
+document.getElementById('takeaways-list').innerHTML = takeaways.map(t => `<li>${t}</li>`).join('');
+
+// ==================== EMAIL KPIs ====================
+
+document.getElementById('email-kpis').innerHTML = `
+  <div class="kpi-card"><div class="label">Total Emails Sent</div><div class="value">${totalEmails}</div><div class="sub">Oct 2025 â Mar 2026</div></div>
+  <div class="kpi-card"><div class="label">Avg Open Rate</div><div class="value" style="color:#3b82f6">${fmtPct(avgOpenRate)}</div></div>
+  <div class="kpi-card"><div class="label">Avg CTR</div><div class="value" style="color:#10b981">${fmtPct(avgCTR)}</div></div>
+  <div class="kpi-card"><div class="label">Total Clicks</div><div class="value">${totalClicks.toLocaleString()}</div></div>
+  <div class="kpi-card"><div class="label">Top CTR Email</div><div class="value" style="font-size:18px;color:#ef4444">${fmtPct(topPerformerByCTR.ctr)}</div><div class="sub">${topPerformerByCTR.type} â ${topPerformerByCTR.date}</div></div>
+`;
+
+// ==================== EMAIL CHARTS ====================
+
+// Open Rate by Type
+const categories = Object.keys(byCategory).sort();
+new Chart(document.getElementById('openRateChart'), {
+  type: 'bar',
+  data: {
+    labels: categories,
+    datasets: [{
+      label: 'Avg Open Rate (%)',
+      data: categories.map(c => (byCategory[c].openRateSum / byCategory[c].count).toFixed(2)),
+      backgroundColor: categories.map(c => typeColors[c] || '#94a3b8'),
+      borderRadius: 6
+    }]
+  },
+  options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { callback: v => v+'%' } } } }
+});
+
+// CTR by Type
+new Chart(document.getElementById('ctrChart'), {
+  type: 'bar',
+  data: {
+    labels: categories,
+    datasets: [{
+      label: 'Avg CTR (%)',
+      data: categories.map(c => (byCategory[c].ctrSum / byCategory[c].count).toFixed(2)),
+      backgroundColor: categories.map(c => typeColors[c] || '#94a3b8'),
+      borderRadius: 6
+    }]
+  },
+  options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { callback: v => v+'%' } } } }
+});
+
+// Timeline chart
+const sortedEmails = [...emails].sort((a,b) => {
+  const da = a.date.includes('/2026') ? new Date('2026/' + a.date.replace(/\/2026/,'')) : new Date('2025/' + a.date);
+  const db = b.date.includes('/2026') ? new Date('2026/' + b.date.replace(/\/2026/,'')) : new Date('2025/' + b.date);
+  return da - db;
+});
+
+new Chart(document.getElementById('timelineChart'), {
+  type: 'line',
+  data: {
+    labels: sortedEmails.map(e => e.date),
+    datasets: [
+      { label: 'Open Rate (%)', data: sortedEmails.map(e => e.openRate), borderColor: '#3b82f6', backgroundColor: 'rgba(59,130,246,0.1)', yAxisID: 'y', tension: 0.3, pointRadius: 3 },
+      { label: 'CTR (%)', data: sortedEmails.map(e => e.ctr), borderColor: '#10b981', backgroundColor: 'rgba(16,185,129,0.1)', yAxisID: 'y1', tension: 0.3, pointRadius: 3 }
+    ]
+  },
+  options: {
+    responsive: true,
+    interaction: { mode: 'index', intersect: false },
+    scales: {
+      y: { type: 'linear', position: 'left', title: { display: true, text: 'Open Rate (%)' }, ticks: { callback: v => v+'%' } },
+      y1: { type: 'linear', position: 'right', title: { display: true, text: 'CTR (%)' }, grid: { drawOnChartArea: false }, ticks: { callback: v => v+'%' } },
+      x: { ticks: { maxRotation: 45, font: { size: 10 } } }
+    }
+  }
+});
+
+// Top 10 table
+const top10 = [...emails].sort((a,b) => b.ctr - a.ctr).slice(0, 10);
+const tbody = document.querySelector('#top-emails-table tbody');
+top10.forEach((e, i) => {
+  const cat = e.category.toLowerCase();
+  const badgeClass = `badge-${cat === 'other' ? 'general' : cat}`;
+  tbody.innerHTML += `<tr>
+    <td>${i+1}</td><td>${e.date}</td>
+    <td><span class="badge ${badgeClass}">${e.category}</span></td>
+    <td style="max-width:350px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${e.subject}</td>
+    <td>${e.delivered.toLocaleString()}</td><td>${fmtPct(e.openRate)}</td>
+    <td style="font-weight:700;color:#10b981">${fmtPct(e.ctr)}</td><td>${e.clicks.toLocaleString()}</td>
+  </tr>`;
+});
+
+// ==================== FACEBOOK KPIs ====================
+
+document.getElementById('fb-kpis').innerHTML = `
+  <div class="kpi-card"><div class="label">YTD Views</div><div class="value">${fmt(fbYTD.views)}</div><div class="change down">â ${Math.abs(fbYTD.viewsChange)}% YoY</div></div>
+  <div class="kpi-card"><div class="label">Organic Views</div><div class="value" style="color:#3b82f6">${fmt(fbYTD.organic)}</div><div class="change down">â ${Math.abs(fbYTD.organicChange)}% YoY</div></div>
+  <div class="kpi-card"><div class="label">Ads Views</div><div class="value" style="color:#f59e0b">${fmt(fbYTD.ads)}</div><div class="change up">â ${fbYTD.adsChange}% YoY</div></div>
+  <div class="kpi-card"><div class="label">Viewers</div><div class="value">${fmt(fbYTD.viewers)}</div></div>
+  <div class="kpi-card"><div class="label">Content Interactions</div><div class="value" style="color:#8b5cf6">${fmt(fbYTD.interactions)}</div><div class="change down">â ${Math.abs(fbYTD.interactionsChange)}% YoY</div></div>
+  <div class="kpi-card"><div class="label">YTD Follows</div><div class="value" style="color:#10b981">${fmt(fbYTD.follows)}</div><div class="change down">â ${Math.abs(fbYTD.followsChange)}% YoY</div><div class="sub">Lifetime: ${fbYTD.followers.toLocaleString()}</div></div>
+`;
+
+// FB Format Views
+const fmtLabels = Object.keys(fbYTD.formatViews);
+new Chart(document.getElementById('fbFormatChart'), {
+  type: 'bar',
+  data: {
+    labels: fmtLabels,
+    datasets: [{
+      label: 'Views',
+      data: fmtLabels.map(l => fbYTD.formatViews[l]),
+      backgroundColor: ['#3b82f6','#8b5cf6','#f59e0b','#10b981','#6b7280','#ec4899','#94a3b8'],
+      borderRadius: 6
+    }]
+  },
+  options: { indexAxis: 'y', responsive: true, plugins: { legend: { display: false } }, scales: { x: { ticks: { callback: v => fmt(v) } } } }
+});
+
+// Organic vs Ads
+new Chart(document.getElementById('fbOrgAdsChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Organic', 'Ads'],
+    datasets: [{
+      data: [fbYTD.organic, fbYTD.ads],
+      backgroundColor: ['#3b82f6', '#f59e0b'],
+      borderWidth: 0
+    }]
+  },
+  options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
+});
+
+// FB Interactions by format
+const intLabels = Object.keys(fbYTD.formatInteractions);
+new Chart(document.getElementById('fbInteractionsChart'), {
+  type: 'bar',
+  data: {
+    labels: intLabels,
+    datasets: [{
+      label: 'Interactions',
+      data: intLabels.map(l => fbYTD.formatInteractions[l]),
+      backgroundColor: ['#3b82f6','#8b5cf6','#10b981','#f59e0b','#6b7280','#ec4899','#94a3b8'],
+      borderRadius: 6
+    }]
+  },
+  options: { indexAxis: 'y', responsive: true, plugins: { legend: { display: false } }, scales: { x: { ticks: { callback: v => fmt(v) } } } }
+});
+
+// FB Audience chart
+new Chart(document.getElementById('fbAudienceChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Follows', 'Unfollows', 'Net Follows'],
+    datasets: [{
+      label: 'YTD',
+      data: [fbYTD.follows, fbYTD.unfollows, fbYTD.netFollows],
+      backgroundColor: ['#10b981', '#ef4444', '#3b82f6'],
+      borderRadius: 6
+    }]
+  },
+  options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
+});
+
+// ==================== INSTAGRAM KPIs ====================
+
+const igFeb = socialData[0];
+const igMar = socialData[1];
+const igViewsChange = ((igMar.igViews - igFeb.igViews) / igFeb.igViews * 100).toFixed(1);
+const igSharesChange = ((igMar.igShares - igFeb.igShares) / igFeb.igShares * 100).toFixed(1);
+
+document.getElementById('ig-kpis').innerHTML = `
+  <div class="kpi-card"><div class="label">Followers (Mar)</div><div class="value">${igMar.igFollowers.toLocaleString()}</div><div class="change ${igMar.igGrowth >= 0 ? 'up' : 'down'}">${igMar.igGrowth >= 0 ? 'â' : 'â'} ${Math.abs(igMar.igGrowth)}% MoM</div></div>
+  <div class="kpi-card"><div class="label">Views (Mar)</div><div class="value" style="color:#8b5cf6">${fmt(igMar.igViews)}</div><div class="change up">â ${igViewsChange}% MoM</div></div>
+  <div class="kpi-card"><div class="label">Interactions (Mar)</div><div class="value" style="color:#ec4899">${fmt(igMar.igInteractions)}</div><div class="change up">â ${((igMar.igInteractions - igFeb.igInteractions)/igFeb.igInteractions*100).toFixed(1)}% MoM</div></div>
+  <div class="kpi-card"><div class="label">Shares (Mar)</div><div class="value" style="color:#f59e0b">${fmt(igMar.igShares)}</div><div class="change up">â ${igSharesChange}% MoM</div></div>
+  <div class="kpi-card"><div class="label">Saves (Mar)</div><div class="value" style="color:#10b981">${fmt(igMar.igSaves)}</div><div class="change up">â ${((igMar.igSaves - igFeb.igSaves)/igFeb.igSaves*100).toFixed(1)}% MoM</div></div>
+`;
+
+// IG Comparison chart
+new Chart(document.getElementById('igCompareChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Views', 'Interactions', 'Shares', 'Saves'],
+    datasets: [
+      { label: 'February 2026', data: [igFeb.igViews, igFeb.igInteractions, igFeb.igShares, igFeb.igSaves], backgroundColor: 'rgba(139,92,246,0.5)', borderRadius: 6 },
+      { label: 'March 2026', data: [igMar.igViews, igMar.igInteractions, igMar.igShares, igMar.igSaves], backgroundColor: 'rgba(139,92,246,1)', borderRadius: 6 }
+    ]
+  },
+  options: { responsive: true, plugins: { legend: { position: 'top' } }, scales: { y: { beginAtZero: true, ticks: { callback: v => fmt(v) } } } }
+});
+
+// ==================== MANNA KPIs ====================
+
+document.getElementById('manna-kpis').innerHTML = `
+  <div class="kpi-card" style="border-left: 4px solid #8b5cf6"><div class="label">Manna Emails Sent</div><div class="value">${mannaEmails.length}</div></div>
+  <div class="kpi-card" style="border-left: 4px solid #8b5cf6"><div class="label">Avg Open Rate</div><div class="value" style="color:#8b5cf6">${fmtPct(mannaAvgOpen)}</div></div>
+  <div class="kpi-card" style="border-left: 4px solid #8b5cf6"><div class="label">Avg CTR</div><div class="value" style="color:#8b5cf6">${fmtPct(mannaAvgCTR)}</div></div>
+  <div class="kpi-card" style="border-left: 4px solid #8b5cf6"><div class="label">Total Clicks</div><div class="value" style="color:#8b5cf6">${mannaTotalClicks.toLocaleString()}</div></div>
+`;
+
+document.getElementById('manna-insight-box').innerHTML = `
+  <h4>ð¡ Manna App Insight</h4>
+  <p>Manna app emails consistently drive the highest engagement across all email categories. The Lenten 40-day prayer challenge (Feb 25) achieved an 8.44% CTR â the highest among mass-audience Manna sends. The special feedback survey email (Feb 12) to a small segment of 4,429 subscribers achieved 16.68% CTR and 45.20% open rate, indicating a highly engaged core user base. The "Heart of Prayer" series, which drives traffic to the Manna app, also maintains strong ~5-7% CTRs through 7 installments.</p>
+`;
+
+</script>
+</body>
+</html>
